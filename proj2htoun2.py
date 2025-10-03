@@ -6,10 +6,14 @@ Created on Mon Sep 15 14:37:19 2025
 """
 from sbtrie import SBTrie 
 
+from trie import Trie # TODO Delete later
+
 # the following functions are to exist with the parameters as written
 # the autograder may call these functions
 
 def getNewDictionary(sbt, filename):
+  newTrie = Trie() # TODO Delete later
+  newTrie.getFromFile(filename) # TODO Delete later
   # enter needed code here for command 1
   pass
 
@@ -34,6 +38,7 @@ def showFoundWords(sbt):
   pass
 
 def showAllWords(sbt):
+  
   # enter needed code here for command 7
   pass
 

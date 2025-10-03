@@ -11,8 +11,8 @@ class SBTrie(Trie):
     def __init__ (self):
         self.insertDataMember = 0
         
-    def sbWords():
+    def sbWords(self):
         pass
     
-    def addFoundWord():
+    def addFoundWord(self):
         pass
