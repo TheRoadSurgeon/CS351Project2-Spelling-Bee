@@ -27,8 +27,10 @@ class Trie:
 
         try:
             with open(fname, "r", encoding="utf-8") as f:
-                for line in f.readline():
-                    self.insert(line)
+                for line in f:
+                    toInsert = line.strip()
+                    if line:
+                        self.insert(toInsert)
 
         except FileNotFoundError:
             print(f"File was not found: {fname}")
@@ -42,10 +44,7 @@ class Trie:
             
             if ch not in curr.children:
                 curr.children[ch] = TrieNode()
-                self.insertDataMember+=1
-
-            if ch in curr.children:
-                return False        
+                self.insertDataMember+=1     
             
             curr = curr.children[ch]
 
@@ -77,22 +76,23 @@ class Trie:
     
     def words(self):
         
-        # Go down each level store each char in a string
-        # Ones reaching isWord = True store string in list
-        # Recusive call
-        # while curr.children:
-        #     for ch in curr.children:
-        def helper(root: TrieNode, allWords: List, seq: str):
+
+        allWords: List[str] = []
+        def helper(root: TrieNode, seq: str):
             
             if root.isWord == True:
                 allWords.append(seq)
-                return
+                
             
-            helper(root.children[])
+            for ch in sorted(root.children.keys()):
+                helper(root.children[ch], seq + ch)
 
         curr = self.root
-        allWords = []
+        
         seq = ""
-        helper(curr, allWords, seq)
+        helper(curr, seq)
 
-        pass
+        for word in allWords:
+            print(word)
+
+        return allWords

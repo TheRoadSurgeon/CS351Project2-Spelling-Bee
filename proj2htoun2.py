@@ -11,11 +11,15 @@ from trie import Trie # TODO Delete later
 # the following functions are to exist with the parameters as written
 # the autograder may call these functions
 
-def getNewDictionary(sbt, filename):
-  newTrie = Trie() # TODO Delete later
-  newTrie.getFromFile(filename) # TODO Delete later
-  # enter needed code here for command 1
-  pass
+# TODO Delete this function:
+def getNewDictionary(trie, filename): 
+  trie.getFromFile(filename) # TODO Delete later
+
+# def getNewDictionary(sbt, filename):
+#   newTrie = Trie() # TODO Delete later
+#   newTrie.getFromFile(filename) # TODO Delete later
+#   # enter needed code here for command 1
+#   pass
 
 def updateDictionary(sbt, filename):
   # enter needed code here for command 2
@@ -37,10 +41,19 @@ def showFoundWords(sbt):
   # enter needed code here for command 6
   pass
 
-def showAllWords(sbt):
+# TODO Delete later
+def showAllWords(trie):
   
+  toPrint = trie.words()
+  for word in toPrint:
+     print(word)
   # enter needed code here for command 7
   pass
+
+# def showAllWords(sbt):
+  
+#   # enter needed code here for command 7
+#   pass
 
 def displayCommands():
   print( "\nCommands are given by digits 1 through 9\n")
@@ -61,6 +74,13 @@ def spellingBee():
   
   sbt = SBTrie()
 
+
+
+  trie = Trie() # TODO Delete later
+
+
+
+
   displayCommands()
 
   while (True):
@@ -75,7 +95,8 @@ def spellingBee():
     if(command == '1'):
         args = line[1:].strip()
         #print ("Debug 1:" + args + "***")
-        getNewDictionary(sbt, args)
+        # getNewDictionary(sbt, args)
+        getNewDictionary(trie, args) # TODO Delete later
 
     if(command == '2'):
         args = line[1:].strip()
@@ -100,7 +121,8 @@ def spellingBee():
         showFoundWords(sbt)
 
     if(command == '7'):
-        showAllWords(sbt)
+        # showAllWords(sbt)
+        showAllWords(trie) # TODO Delete later
 
     
     if(command == '8' or command == '?'):
