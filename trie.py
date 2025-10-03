@@ -91,7 +91,6 @@ class Trie:
     
     def words(self):
         
-
         allWords: List[str] = []
         def helper(root: TrieNode, seq: str):
             

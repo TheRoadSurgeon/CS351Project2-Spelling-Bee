@@ -12,8 +12,9 @@ from trie import Trie # TODO Delete later
 # the autograder may call these functions
 
 # TODO Delete this function:
-def getNewDictionary(trie, filename): 
-  trie.getFromFile(filename) # TODO Delete later
+def getNewDictionary(sbt, filename):
+  sbt.clear()
+  sbt.getFromFile(filename) # TODO Delete later
 
 # def getNewDictionary(sbt, filename):
 #   newTrie = Trie() # TODO Delete later
@@ -42,9 +43,9 @@ def showFoundWords(sbt):
   pass
 
 # TODO Delete later
-def showAllWords(trie):
+def showAllWords(sbt):
   
-  toPrint = trie.words()
+  toPrint = sbt.words()
   for word in toPrint:
      print(word)
   # enter needed code here for command 7
@@ -72,12 +73,10 @@ def displayCommands():
 def spellingBee():
   print("Welcome to Spelling Bee Game")
   
-  sbt = SBTrie()
-
-
 
   trie = Trie() # TODO Delete later
-
+  
+  sbt = SBTrie()
 
 
 
@@ -94,11 +93,11 @@ def spellingBee():
 
     # TODO Delete later
     # -------------------------
-    print(trie.wordCount())
+    print(sbt.wordCount())
 
-    if trie.remove("a"):
+    if sbt.remove("a"):
        print("Word was removed")
-    print(trie.wordCount())   
+    print(sbt.wordCount())   
     # -------------------------
 
 
@@ -106,7 +105,7 @@ def spellingBee():
         args = line[1:].strip()
         #print ("Debug 1:" + args + "***")
         # getNewDictionary(sbt, args)
-        getNewDictionary(trie, args) # TODO Delete later
+        getNewDictionary(sbt, args) # TODO Delete later
 
     if(command == '2'):
         args = line[1:].strip()
@@ -132,7 +131,7 @@ def spellingBee():
 
     if(command == '7'):
         # showAllWords(sbt)
-        showAllWords(trie) # TODO Delete later
+        showAllWords(sbt) # TODO Delete later
 
     
     if(command == '8' or command == '?'):
