@@ -91,7 +91,17 @@ def spellingBee():
     # clear input from any previous value
     args = ""
 
-    
+
+    # TODO Delete later
+    # -------------------------
+    print(trie.wordCount())
+
+    if trie.remove("a"):
+       print("Word was removed")
+    print(trie.wordCount())   
+    # -------------------------
+
+
     if(command == '1'):
         args = line[1:].strip()
         #print ("Debug 1:" + args + "***")
