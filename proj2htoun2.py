@@ -82,8 +82,8 @@ def attemptWord(sbt, word):
   sbt.score += points
 
 
-  pBool = sbt.isPangram(wrd)
-  if pBool:
+  pang = sbt.isPangram(wrd)
+  if pang:
     sbt.pangramFound = True
   
   bingoAgain = False
@@ -98,12 +98,11 @@ def attemptWord(sbt, word):
   total_unit = "point" if sbt.score == 1 else "points"
 
   report += f"found {wrd} {points} {unit}, total {sbt.score} {total_unit}"
-  if sbt.pangramFound:
+  if pang:
     report += f", Pangram found"
-    sbt.pangramFound = False
+    
   if bingoAgain:
     report += f", Bingo scored"
-    sbt.bingFound = False
     
   print(report)
   
