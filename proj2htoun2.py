@@ -29,10 +29,10 @@ def setupLetters(sbt, letters):
 
   for ch in letters:
      if ch.isalpha():
-      filteredLetters += ch
+      filteredLetters += ch.lower()
   
   if len(filteredLetters) != 7 or len(set(filteredLetters)) != 7:
-     return False
+    return False
   
   sbt.central = filteredLetters[0]
   sbt.others = sorted(filteredLetters[1:])
@@ -48,12 +48,38 @@ def setupLetters(sbt, letters):
 
 def showLetters(sbt):
   # enter needed code here for command 4
-  print(f"Central Letter:  {sbt.central}")
-  print(f"6 Other Letters: {','.join(sbt.others)}")
+  letters = sbt.getLetters()
+  
+  if len(letters) != 7:
+     return
+
+  centralLetter = letters[0]
+  otherLetters = letters[1:]
+
+  print(f"Central Letter: {centralLetter}")
+  print(f"6 Other Letters: {','.join(otherLetters)}")
 
 
 def attemptWord(sbt, word):
   # enter needed code here for command 5
+  errCode = sbt.isNewSBWord(word)
+  if errCode == -1:
+    print("word is too short")
+    return
+  if errCode == -2:
+    print("word is missing central letter")
+    return
+  if errCode == -3:
+    print("word contains invalid letter")
+    return
+  if errCode == -4:
+    print("word is not in the dictionary")
+    return
+  if errCode == -5:
+    print("word has already been found")
+    return
+
+  print(sbt.score)
   pass
 
 def showFoundWords(sbt):
