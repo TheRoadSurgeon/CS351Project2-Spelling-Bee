@@ -1,1 +1,1 @@
-.lower()
+seenFirstLetter

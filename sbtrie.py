@@ -16,7 +16,7 @@ class SBTrie(Trie):
         self.score: int = 0
         self.pangramFound: bool = False
         self.bingoFound: bool = False
-        self._seenFirstLetter: set[str] = set()
+        self.seenFirstLetter: set[str] = set()
 
     def getLetters(self) -> str:
         letters = ""
@@ -27,53 +27,50 @@ class SBTrie(Trie):
     
     # TODO Check if this is correct
     def isNewSBWord(self, word: str) -> int:
-    
-        if len(word) < 4:
+        wrd = word.lower()
+
+        if len(wrd) < 4:
             return -1
         
-        if self.central not in word:
+        if self.central not in wrd:
             return -2
         
-        for ch in word:
-            if ch not in self.others and ch != self.central:
+        if not wrd.isalpha():
+            return -3
+
+        gameLatters = set(self.getLetters())
+        for ch in wrd:
+            if ch not in gameLatters:
                 return -3
         
-        if not self.search(word):
+        if not self.search(wrd):
             return -4
          
-        if self.found.search(word):
+        if self.found.search(wrd):
             return -5
         
-        self.score += len(word) - 3
-        self.insert(word)
-        
-        if self.isPangram(word):
-            self.score +=7
-            return 1
 
-        if self.hasBingo():
-            self.score
-        return 0
+        base = 1 if len(wrd) == 4 else len(wrd)
+        points = base + (7 if self.isPangram(wrd) else 0)
+        
+        return points
 
     def isPangram(self, word: str) -> bool:
-        possibleLetters = self.getLetters()
-        chSet = set()
+        # Make sure to get non repeating game letters that are used for the game.
+        # When a word is guessed we extract all the unique letters.
+        gameLetters = set(self.getLetters()) # The 7 letters choosen by user
+        wordSet = set(word.lower()) # The letters of the inputed word to guess
 
-        for ch in word:
-            if ch in possibleLetters:
-                chSet.add(ch)
+        # We check if all the unique letters in 
+        # the guest word and the allowed letters match.
+        return wordSet == gameLetters
 
-        if len(chSet) >= 7:
-            return True
-
-        return False
     
     def hasBingo(self) -> bool:
-        allWordsFound = self.found.words()
-        if len(set(allWordsFound)) >= 7:
-            return True
-        
-        return False
+        # If word has been found that STARTS with each possible letter
+        # from our choosen game letters check the set of those first letter words.
+        # If we have 7 unique letters in that set we have a bingo.
+        return len(self.seenFirstLetter) == 7
     
     def getFoundWord(self) -> list[str]:
 
@@ -87,8 +84,9 @@ class SBTrie(Trie):
     
 
     # This was not in directions implament when you come to it if needed.
-    def addFoundWord(self):
-        pass
+    def addFoundWord(self, word: str):
+      
+        return self.found.insert(word)
 
 
 

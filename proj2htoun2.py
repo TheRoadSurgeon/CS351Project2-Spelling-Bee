@@ -41,7 +41,7 @@ def setupLetters(sbt, letters):
   sbt.score = 0
   sbt.pangramFound = False
   sbt.bingoFound = False
-  sbt._seenFirstLetter.clear()
+  sbt.seenFirstLetter.clear()
 
   return True
 
@@ -62,25 +62,53 @@ def showLetters(sbt):
 
 def attemptWord(sbt, word):
   # enter needed code here for command 5
-  errCode = sbt.isNewSBWord(word)
-  if errCode == -1:
-    print("word is too short")
+  points = sbt.isNewSBWord(word)
+  if points < 0:
+    message = {
+        -1: "word is too short",
+        -2: "word is missing central letter",
+        -3: "word contains invalid letter",
+        -4: "word is not in the dictionary",
+        -5: "word has already been found"
+    }
+    print(message[points]) 
     return
-  if errCode == -2:
-    print("word is missing central letter")
-    return
-  if errCode == -3:
-    print("word contains invalid letter")
-    return
-  if errCode == -4:
-    print("word is not in the dictionary")
-    return
-  if errCode == -5:
-    print("word has already been found")
-    return
+  
+  wrd = word.lower()
 
-  print(sbt.score)
-  pass
+  # Err checked insert the word into found trie.
+  sbt.found.insert(wrd)
+  # Incrament the score
+  sbt.score += points
+
+
+  pBool = sbt.isPangram(wrd)
+  if pBool:
+    sbt.pangramFound = True
+  
+  bingoAgain = False
+  if wrd:
+    sbt.seenFirstLetter.add(wrd[0])
+    if not sbt.bingoFound and len(sbt.seenFirstLetter) == 7:
+      sbt.bingFound = True
+      bingoAgain = True
+
+  report = ""
+  unit = "point" if points == 1 else "points"
+  total_unit = "point" if sbt.score == 1 else "points"
+
+  report += f"found {wrd} {points} {unit}, total {sbt.score} {total_unit}"
+  if sbt.pangramFound:
+    report += f", Pangram found"
+    sbt.pangramFound = False
+  if bingoAgain:
+    report += f", Bingo scored"
+    sbt.bingFound = False
+    
+  print(report)
+  
+  
+
 
 def showFoundWords(sbt):
   # enter needed code here for command 6
