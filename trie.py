@@ -95,6 +95,7 @@ class Trie:
     def clear(self):
         self.root = TrieNode()
         self.insertDataMember = 0
+        return True
     
     def wordCount(self):
         return self.insertDataMember

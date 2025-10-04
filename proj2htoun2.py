@@ -96,8 +96,6 @@ def spellingBee():
 
   displayCommands()
 
-
-
   while (True):
     try:
       line = input ("cmd> ")
@@ -155,4 +153,5 @@ def spellingBee():
 
   return
   
-spellingBee()
+if __name__ == "__main__":
+  spellingBee()
