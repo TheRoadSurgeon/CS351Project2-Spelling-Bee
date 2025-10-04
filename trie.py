@@ -4,9 +4,9 @@ from __future__ import annotations
 from typing import List
 
 """
-Created on Mon Sep 15 15:22:23 2025
+Due: Tuesday, October 7th, 2025 @ 11:59PM
 
-@author: troy
+@author: Hristian Tountchev
 """
 
 class TrieNode:
@@ -28,18 +28,24 @@ class Trie:
         try:
             with open(fname, "r", encoding="utf-8") as f:
                 for line in f:
-                    toInsert = line.strip().lower()
-                    if toInsert:
-                        self.insert(toInsert)
+                    # toInsert = line.strip().lower()
+                    for tok in line.split():
+                        c = tok.lower()
+                        if c.isalpha():
+                            self.insert(c)
             return True
-        except FileNotFoundError:
-            print(f"File was not found: {fname}")
+        except OSError:
+            return False
 
-        return False
     
     def insert(self, word: str) -> bool:
         curr = self.root
         
+        if not word or not word.isalpha():
+            return False
+        
+        word = word.lower()
+
         for ch in word:
             
             if ch not in curr.children:
@@ -47,6 +53,10 @@ class Trie:
                     
             
             curr = curr.children[ch]
+
+        if curr.isWord:
+            return False
+
 
         curr.isWord = True
         self.insertDataMember+=1 

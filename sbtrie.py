@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 """
-Created on Mon Sep 15 15:17:47 2025
+Due: Tuesday, October 7th, 2025 @ 11:59PM
 
-@author: troy
+@author: Hristian Tountchev
 """
 from trie import Trie
 
@@ -10,7 +10,7 @@ class SBTrie(Trie):
     """ A class for the Spelling Bee Trie """
     def __init__ (self):
         super().__init__()
-        self.trie = Trie()
+        self.found = Trie()
         self.central: str | None = None
         self.others: list[str] = []
         self.score: int = 0
@@ -19,11 +19,12 @@ class SBTrie(Trie):
         self._seenFirstLetter: set[str] = set()
 
     def getLetter(self) -> str:
-
+        
 
 
         return ""
     
+    # TODO Check if this is correct
     def isNewSBWord(self, word: str) -> int:
         toRet: int = 0
 

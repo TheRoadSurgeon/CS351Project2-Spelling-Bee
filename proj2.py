@@ -1,38 +1,56 @@
 # -*- coding: utf-8 -*-
 """
-Created on Mon Sep 15 14:37:19 2025
+Due: Tuesday, October 7th, 2025 @ 11:59PM
 
-@author: troy
+@author: Hristian Tountchev
 """
 from sbtrie import SBTrie 
 
-from trie import Trie # TODO Delete later
 
 # the following functions are to exist with the parameters as written
 # the autograder may call these functions
 
-# TODO Delete this function:
+
 def getNewDictionary(sbt, filename):
   sbt.clear()
-  sbt.getFromFile(filename) # TODO Delete later
-
-# def getNewDictionary(sbt, filename):
-#   newTrie = Trie() # TODO Delete later
-#   newTrie.getFromFile(filename) # TODO Delete later
-#   # enter needed code here for command 1
+  sbt.getFromFile(filename)
 #   pass
 
 def updateDictionary(sbt, filename):
+  sbt.getFromFile(filename)
   # enter needed code here for command 2
-  pass
+  # pass
 
+# TODO Check if it is correct
 def setupLetters(sbt, letters):
   # enter needed code here for command 3
-  pass
+
+  filteredLetters = ""
+
+  for ch in letters:
+     if ch.isalpha():
+      filteredLetters += ch
+  
+  if len(filteredLetters) != 7 or len(set(filteredLetters)) != 7:
+     return False
+  
+  sbt.central = filteredLetters[0]
+  sbt.others = sorted(filteredLetters[1:])
+
+  sbt.found.clear()
+  sbt.score = 0
+  sbt.pangramFound = False
+  sbt.bingoFound = False
+  sbt._seenFirstLetter.clear()
+
+  return True
+
 
 def showLetters(sbt):
   # enter needed code here for command 4
-  pass
+  print(f"Central Letter:  {sbt.central}")
+  print(f"6 Other Letters: {','.join(sbt.others)}")
+
 
 def attemptWord(sbt, word):
   # enter needed code here for command 5
@@ -42,7 +60,6 @@ def showFoundWords(sbt):
   # enter needed code here for command 6
   pass
 
-# TODO Delete later
 def showAllWords(sbt):
   
   toPrint = sbt.words()
@@ -73,17 +90,20 @@ def displayCommands():
 def spellingBee():
   print("Welcome to Spelling Bee Game")
   
-
-  trie = Trie() # TODO Delete later
   
   sbt = SBTrie()
 
 
-
   displayCommands()
 
+
+
   while (True):
-    line = input ("cmd> ")
+    try:
+      line = input ("cmd> ")
+    except EOFError:
+       break
+    
     command = line[0]
     #print ("Debug 0:" + line + "***" + command + "***")
     
@@ -91,21 +111,11 @@ def spellingBee():
     args = ""
 
 
-    # TODO Delete later
-    # -------------------------
-    print(sbt.wordCount())
-
-    if sbt.remove("a"):
-       print("Word was removed")
-    print(sbt.wordCount())   
-    # -------------------------
-
-
     if(command == '1'):
         args = line[1:].strip()
         #print ("Debug 1:" + args + "***")
         # getNewDictionary(sbt, args)
-        getNewDictionary(sbt, args) # TODO Delete later
+        getNewDictionary(sbt, args)
 
     if(command == '2'):
         args = line[1:].strip()
@@ -115,8 +125,10 @@ def spellingBee():
     if(command == '3'):
         args = line[1:].strip()
         #print( "Debug 3:" + args + "***")
-        setupLetters(sbt, args)
-
+        if setupLetters(sbt, args) == False:
+          print("Invalid letter set")
+          continue
+        
 
     if(command == '4'):
         showLetters(sbt)
@@ -131,7 +143,7 @@ def spellingBee():
 
     if(command == '7'):
         # showAllWords(sbt)
-        showAllWords(sbt) # TODO Delete later
+        showAllWords(sbt)
 
     
     if(command == '8' or command == '?'):
