@@ -72,15 +72,24 @@ class SBTrie(Trie):
         # If we have 7 unique letters in that set we have a bingo.
         return len(self.seenFirstLetter) == 7
     
+
+    # TODO Check function
     def getFoundWord(self) -> list[str]:
 
-
-        return []
+        return self.found.words()
     
-
+    # TODO Check function
     def sbWords(self, centralLetter: str, otherLetters: str) -> list[str]:
+        
+        allWords = self.words()
+        allLetters = self.getLetters()
+        correctWords = []
 
-        return []
+        for word in allWords:
+            if len(word) >= 4 and word in allLetters:
+                correctWords.append(word)
+
+        return correctWords
     
 
     # This was not in directions implament when you come to it if needed.

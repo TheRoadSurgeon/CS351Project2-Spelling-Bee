@@ -108,10 +108,30 @@ def attemptWord(sbt, word):
   
   
 
-
+# TODO Fix this
 def showFoundWords(sbt):
   # enter needed code here for command 6
-  pass
+  allFoundWords = sbt.getFoundWord()
+  allFoundWords.sort()
+
+
+  for word in allFoundWords:
+    print(word)
+  
+  n = len(allFoundWords)
+  wrdUnit = "word" if n == 1 else "words"
+  ptsUnit = "point" if sbt.score == 1 else "points"
+
+  extra = []
+  if sbt.pangramFound:
+    extra.append("Pangram found")
+  if sbt.bingoFound:
+     extra.append("Bingo scored")
+  
+  report = (", " + ", ".join(extra)) if extra else ""
+
+  print(f"{n} {wrdUnit} found, total {sbt.score} {ptsUnit}{report}")
+
 
 def showAllWords(sbt):
   
@@ -121,10 +141,6 @@ def showAllWords(sbt):
   # enter needed code here for command 7
   pass
 
-# def showAllWords(sbt):
-  
-#   # enter needed code here for command 7
-#   pass
 
 def displayCommands():
   print( "\nCommands are given by digits 1 through 9\n")
